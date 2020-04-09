@@ -1,11 +1,5 @@
-// Upsample MODIS landcover classification (250m) to Landsat
-// resolution (30m) using a supervised classifier.
+
 var collection = ee.ImageCollection("MODIS/006/MCD12Q1");
-// var geometry = ee.Geometry.Polygon(
-//         [[[29.972731783841393, 31.609824974226175],
-//           [29.972731783841393, 30.110383818311096],
-//           [32.56550522134139, 30.110383818311096],
-//           [32.56550522134139, 31.609824974226175]]], null, false);
 
 var HBH = ee.FeatureCollection("users/wufvckshuo/HuangBaiHe");
 var roi = HBH;

@@ -7,13 +7,9 @@ Map.addLayer(roi, {color:"red"}, "roi");
 var yearImgs = [];
 var years = [2011,2014,2017,2019];
 yearImgs = years.map(function(y){
-  
+  var img = ee.Image("users/wufvckshuo/XXH/xxhNDVI-"+y);
+  return img;
 })
-var image0 = ee.Image("users/wufvckshuo/XXH/xxhNDVI-2011");
-var image1 = ee.Image("users/wufvckshuo/XXH/xxhNDVI-2014");
-var image2 = ee.Image("users/wufvckshuo/XXH/xxhNDVI-2017");
-var image3 = ee.Image("users/wufvckshuo/XXH/xxhNDVI-2019");
-yearImgs = [image0,image1,image2,image3];
 
 var yearCol = ee.ImageCollection.fromImages(yearImgs)
                 .select("NDVI");

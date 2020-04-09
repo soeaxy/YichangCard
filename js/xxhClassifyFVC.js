@@ -12,6 +12,9 @@ print(imgList);
 
 var reclassFVC = function(image){
     var reclassedFVC = image.select('FVC').gt(0.3).add(image.gt(0.45)).add(image.gt(0.6)).add(image.gt(0.75));
+    var time_start = image.get("system:time_start");
+    reclassedFVC = reclassedFVC.set("system:time_start", time_start);
+    reclassedFVC = reclassedFVC.set("date", ee.Date(time_start).format("yyyy-MM-dd"));
     return reclassedFVC;
 };
 
@@ -96,7 +99,7 @@ var imgs = ClassifiedFVCCol.toList(4);
 ee.List.sequence(0,ee.Number(count.subtract(1))).getInfo()
 .map(function(img){
   var image = ee.Image(imgs.get(img));
-  print(image);
+  print(image.get('date'));
   cacluateArea(image.select('FVC'));
 });
 

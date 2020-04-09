@@ -1,35 +1,66 @@
+var lib = require("users/wangweihappy0/myTrainingShare:training03/pubLibs");
+var roi = ee.FeatureCollection("users/wufvckshuo/XiangxihePolygon");
+Map.centerObject(roi, 7);
+Map.addLayer(roi, {color:"red"}, "roi");
 
-var CN = ee.FeatureCollection("users/wufvckshuo/China_City");
-var jingzhou = CN.filter(ee.Filter.eq('NAME', '荆州市'));
-var lct = require('users/google/toolkits:landcover/api.js');
-var roi = jingzhou;
-// Create a new dataset, filter by date, country, and mask clouds and shadows.
-var dataset = lct.Landsat8()
-                  .filterDate('2018-01-01', '2019-01-01')
-                  .filterBounds(roi)
-                  .maskCloudsAndShadows();
-
-function scaleImage(image) {
-    var time_start = image.get("system:time_start");
-    image = image.multiply(0.0001);
-    image = image.set("system:time_start", time_start);
-    return image;
+function getYearCol(sDate, eDate, lxCol, region) {
+  var yearList = ee.List.sequence(ee.Date(sDate).get("year"), ee.Number(ee.Date(eDate).get("year")).subtract(1));
+  yearList = ee.List([2011,2014,2017,2019]);
+  var yearImgList = yearList.map(function(year) {
+    year = ee.Number(year);
+    var _sdate = ee.Date.fromYMD(year, 1, 1);
+    var _edate = ee.Date.fromYMD(year.add(1), 1, 1);
+    
+    var tempCol = lxCol.filterDate(_sdate, _edate);
+    var img = tempCol.max().clip(region);
+    img = img.set("date", _sdate.format("yyyy"));
+    img = img.set("system:index", _sdate.format("yyyy"));
+    img = img.set("system:time_start", _sdate.millis());
+    return img;
+  });
+  
+  var yearImgCol = ee.ImageCollection.fromImages(yearImgList);
+  return yearImgCol;
 }
 
-// Add the resulting ImageCollection to the map, taking the median of
-// overlapping pixel values.
-var image = (dataset.getImageCollection()).map(scaleImage).median().clip(roi).toFloat();
-Map.addLayer(
-    image, dataset.getDefaultVisParams());
-Map.centerObject(roi);
+var startDate = "2011-01-01";
+var endDate = "2020-01-01";
+var l4Col = lib.getL4SRCollection(startDate, endDate, roi);
+var l5Col = lib.getL5SRCollection(startDate, endDate, roi);
+var l7Col = lib.getL7SRCollection("2012-1-1", "2013-1-1", roi);
+var l8Col = lib.getL8SRCollection(startDate, endDate, roi);
+var lxCol = l8Col.merge(l7Col)
+                 .merge(l5Col)
+                 .merge(l4Col)
+                 .filter(ee.Filter.calendarRange(4, 10, "month"))
+                 .sort("system:time_start");
+var yearCol = getYearCol(startDate, endDate, lxCol, roi);
+print("yearCol", yearCol);
+var visParam = {
+  min: 0,
+  max: 0.9,
+  palette: [
+    'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718', '74A901',
+    '66A000', '529400', '3E8601', '207401', '056201', '004C00', '023B01',
+    '012E01', '011D01', '011301'
+  ],
+};
+Map.addLayer(yearCol.select('NDVI').first(), visParam, "2011");
 
+var dateList = yearCol.reduceColumns(ee.Reducer.toList(), ["date"])
+                      .get("list");
+print("yearList", dateList);
+dateList.evaluate(function(dates) {
+  for (var i=0; i<dates.length; i++) {
+    var image = yearCol.filter(ee.Filter.eq("date", dates[i])).first();
+    Export.image.toDrive({
+      image: image,
+      description: "XXH-YearLandsat-"+dates[i],
+      folder: "XXH",
+      region: roi.geometry().bounds(),
+      scale: 30, 
+      maxPixels: 1e13
+    });
+  }
+});
 
-Export.image.toDrive({
-            image: image,
-            description: 'jingzhou',
-            folder:'jingzhou',
-            region: roi.geometry(),
-            scale: 30,
-            crs: "EPSG:4326",
-            maxPixels: 1e13
-          });

@@ -24,7 +24,7 @@ function getYearCol(sDate, eDate, lxCol, region) {
   return yearImgCol;
 }
 
-var startDate = "1988-01-01";
+var startDate = "2011-01-01";
 var endDate = "2020-01-01";
 var l4Col = lib.getL4SRCollection(startDate, endDate, roi);
 var l5Col = lib.getL5SRCollection(startDate, endDate, roi);
