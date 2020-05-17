@@ -1,0 +1,87 @@
+{
+  "rootTopicKey": "5596785f-42de-46ea-8f7c-3c5488726940",
+  "editorRootTopicKey": "5596785f-42de-46ea-8f7c-3c5488726940",
+  "focusKey": "4c86d405-844a-4c44-903e-ff08d0dbfab9",
+  "extData": {},
+  "topics": [
+    {
+      "key": "5596785f-42de-46ea-8f7c-3c5488726940",
+      "parentKey": null,
+      "subKeys": [
+        "4c86d405-844a-4c44-903e-ff08d0dbfab9"
+      ],
+      "collapse": false,
+      "style": null,
+      "blocks": [
+        {
+          "type": "CONTENT",
+          "data": "宜昌市"
+        }
+      ]
+    },
+    {
+      "key": "4c86d405-844a-4c44-903e-ff08d0dbfab9",
+      "parentKey": "5596785f-42de-46ea-8f7c-3c5488726940",
+      "subKeys": [],
+      "collapse": false,
+      "style": null,
+      "blocks": [
+        {
+          "type": "CONTENT",
+          "data": "Google Earth Engine"
+        },
+        {
+          "type": "TOPOLOGY",
+          "data": ""
+        }
+      ]
+    }
+  ],
+  "config": {
+    "readOnly": false,
+    "allowUndo": true,
+    "layoutDir": 2,
+    "theme": {
+      "name": "default",
+      "randomColor": true,
+      "background": "rgb(57,60,65)",
+      "highlightColor": "#50C9CE",
+      "marginH": 60,
+      "marginV": 20,
+      "contentStyle": {
+        "lineHeight": "1.5",
+        "fontSize": "16px"
+      },
+      "linkStyle": {
+        "lineRadius": 5,
+        "lineType": "curve",
+        "lineWidth": "3px"
+      },
+      "rootTopic": {
+        "contentStyle": {
+          "fontSize": "36px"
+        },
+        "subLinkStyle": {
+          "lineType": "curve",
+          "lineWidth": "3px"
+        }
+      },
+      "primaryTopic": {
+        "contentStyle": {
+          "fontSize": "24px"
+        },
+        "subLinkStyle": {
+          "lineType": "curve",
+          "lineWidth": "3px"
+        }
+      },
+      "normalTopic": {
+        "subLinkStyle": {
+          "lineType": "curve",
+          "lineWidth": "3px"
+        }
+      }
+    }
+  },
+  "formatVersion": "0.0"
+}

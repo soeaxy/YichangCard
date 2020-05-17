@@ -77,3 +77,4 @@ C:/Python27/ArcGIS10.7/python.exe -m pip install python-docx -i https://pypi.tun
 C:/Python27/ArcGIS10.3/python.exe d:/Work/HeNanHuBei/get-pip.py
 ```
 - 先打开下mxd文件，保证在ArcGIS当中可以正常打开，否则请修复数据源。
+
