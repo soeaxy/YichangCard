@@ -120,7 +120,7 @@ def CreateTable(document,row, rsPicPath=None):
 # # #----------代码运行模式----------
 docx_template_file = "HenanProvince.docx"
 table_title = u""
-images_output_dir = "d:\\work\\HeNanHuBei"
+images_output_dir = r"."
 # # mxd文件切记，不能用中文名，否则会报IO错
 mxd = arcpy.mapping.MapDocument(r"HeNanMiningCard.mxd")
 
