@@ -40,7 +40,7 @@ def CreateTable(document,row, rsPicPath=None):
 
     # 项目名称
     table.cell(0,7).merge(table.cell(0,11)).text=(u"子项目名称")
-    table.cell(0,12).merge(table.cell(0,24)).text=(u'黄柏河流域1:5万水文地质环境地质综合遥感解译')
+    table.cell(0,12).merge(table.cell(0,24)).text=(u'南阳幅1:5万水文地质环境地质综合遥感解译')
 
     # 解译内容
     table.cell(1,0).merge(table.cell(2,2)).text=(u"解译内容")
@@ -98,7 +98,7 @@ def CreateTable(document,row, rsPicPath=None):
 
     # 项目信息
     table.cell(10,0).merge(table.cell(10,2)).text=(u"项目名称")
-    table.cell(10,3).merge(table.cell(10,15)).text=(u'黄柏河流域1:5万水文地质环境地质综合遥感解译')
+    table.cell(10,3).merge(table.cell(10,15)).text=(u'宜昌市资源环境承载能力评价')
     table.cell(10,16).merge(table.cell(10,18)).text=(u"承担单位")
     table.cell(10,19).merge(table.cell(10,24)).text=(u'')
 
@@ -118,11 +118,11 @@ def CreateTable(document,row, rsPicPath=None):
 # mxd = arcpy.mapping.MapDocument("CURRENT")
 
 # # #----------代码运行模式----------
-docx_template_file = "HenanProvince.docx"
+docx_template_file = "NanyangFaultResult.docx"
 table_title = u""
 images_output_dir = r"."
 # # mxd文件切记，不能用中文名，否则会报IO错
-mxd = arcpy.mapping.MapDocument(r"HeNanMiningCard.mxd")
+mxd = arcpy.mapping.MapDocument(r"NanyangFaultForExport.mxd")
 
 lyr = arcpy.mapping.ListLayers(mxd)[0]
 df = arcpy.mapping.ListDataFrames(mxd)[0]
@@ -136,7 +136,7 @@ cursor = arcpy.SearchCursor(lyr,fieldnames)
 # 若para_fc_count为0，则输出所有要素
 # 若para_fc_count不为0，则输出para_fc_count个要素
 # fc_count为最终输出到docx文件的要素数目
-para_fc_count=1
+para_fc_count=0
 fc_count=0
 if int(para_fc_count)==0:
     fc_count = int(arcpy.GetCount_management(lyr.dataSource).getOutput(0))

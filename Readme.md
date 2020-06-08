@@ -1,6 +1,6 @@
 # 遥感地质调查解译图自动出图插件
 
-（改自[许石罗](https://gitee.com/xushiluo/HeNanMiningCard/tree/master/)）
+（改自[Dandelion](https://gitee.com/xushiluo/HeNanMiningCard/tree/master/)）
 
 # 一、依赖环境
 - ArcPy（需要安装ArcGIS Desktop）
